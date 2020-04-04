@@ -1,24 +1,24 @@
 CREATE TABLE "tasks"
 (
     "id" serial PRIMARY KEY,
-    "task-name" VARCHAR(255) NOT NULL,
+    "task_name" VARCHAR(255) NOT NULL,
     "completed" BOOLEAN
 );
 
 INSERT INTO "tasks"
-    ("task-name", "completed")
+    ("task_name", "completed")
 VALUES
     ( 'Weekend Code Challenge', 'false');
 INSERT INTO "tasks"
-    ("task-name", "completed")
+    ("task_name", "completed")
 VALUES
     ( 'Dishes', 'false');
 INSERT INTO "tasks"
-    ("task-name", "completed")
+    ("task_name", "completed")
 VALUES
     ( 'Make Dinner', 'false');
 INSERT INTO "tasks"
-    ("task-name", "completed")
+    ("task_name", "completed")
 VALUES
     ( 'Outdoor Run', 'false');
 
