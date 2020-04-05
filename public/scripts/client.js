@@ -5,23 +5,28 @@ function init() {
   getTasks();
 
   //connecting event listeners to the DOM
-  //   $("#add_task").on("click", clickAddTask);
-  //   $("#complete_task").on("click", clickCompleteTask);
-  //   $("#delete_task").on("click", clickDeleteTask);
+  $("#add_task").on("click", clickAddTask);
+  $("#complete_task").on("click", clickCompleteTask);
+  $("#delete_task").on("click", clickDeleteTask);
 }
 
-//click event listeners
+//event handlers
 // function clickAddTask(event) {
 //   console.log("You clicked to add a task");
+//   const newTaskData = {
+//       task_name: $(".js-TODO-input").val();
+//       completed: 'false'
+//   };
+//NEED TO CALL TO A FUNCTION THAT WILL UPDATE THIS INFO TO THE DATABASE
 // }
 
-// function clickCompleteTask(event) {
-//   console.log("You clicked to complete a task");
-// }
+function clickCompleteTask(event) {
+  console.log("You clicked to complete a task");
+}
 
-// function clickDeleteTask(event) {
-//   console.log("You clicked to complete a task");
-// }
+function clickDeleteTask(event) {
+  console.log("You clicked to complete a task");
+}
 
 //SERVER API CALLS//
 function getTasks() {
