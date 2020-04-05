@@ -1,24 +1,34 @@
 $(document).ready(init);
 
+let tasks = [];
+
 function init() {
   console.log("The DOM is ready to roll");
-  getTasks();
 
   //connecting event listeners to the DOM
-  $("#add_task").on("click", clickAddTask);
-  $("#complete_task").on("click", clickCompleteTask);
-  $("#delete_task").on("click", clickDeleteTask);
+  $(".js-TODO-input-form").on("submit", submitTask); //connecting to the input form class
+  // $("#complete_task").on("click", clickCompleteTask);
+  // $("#delete_task").on("click", clickDeleteTask);
+
+  //load tasks to DOM
+  getTasks();
 }
 
-//event handlers
-// function clickAddTask(event) {
-//   console.log("You clicked to add a task");
-//   const newTaskData = {
-//       task_name: $(".js-TODO-input").val();
-//       completed: 'false'
-//   };
-//NEED TO CALL TO A FUNCTION THAT WILL UPDATE THIS INFO TO THE DATABASE
-// }
+//EVENT HANDLERS
+
+//below function captures DOM input on click and logs it to the console, then calls to function that clears the input field
+function submitTask(event) {
+  event.preventDefault();
+  console.log("You clicked to add a task");
+  const taskInput = $(".js-TODO-input").val();
+  postTask(taskInput); //passes the DOM input to postTask function
+  clearInput();
+}
+
+//function to clear input field
+function clearInput() {
+  $(".js-TODO-input").val("");
+}
 
 function clickCompleteTask(event) {
   console.log("You clicked to complete a task");
@@ -39,6 +49,44 @@ function getTasks() {
     })
     .catch((err) => {
       console.log("error:", err);
+    });
+}
+
+// function postTask(task) {
+//   //postTask function takes a task as its argument, which will generally be the taskInput generated on the DOM
+//   const dataForServer = {
+//     //creating an object to pass to the server in ajax call through POST route
+//     task_name: task,
+//   };
+//   $.ajax({
+//     type: "POST",
+//     url: "/todo",
+//     data: dataForServer,
+//   })
+//     .then((response) => {
+//       getTasks();
+//       console.log(response);
+//     })
+//     .catch((err) => {
+//       console.log("error:", err);
+//     });
+// }
+
+function postTask(task) {
+  const dataForServer = {
+    task: task,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "/todo",
+    data: dataForServer,
+  })
+    .then((response) => {
+      getTasks();
+    })
+    .catch((err) => {
+      console.warn(err);
     });
 }
 
