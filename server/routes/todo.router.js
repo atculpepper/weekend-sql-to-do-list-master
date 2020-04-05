@@ -18,34 +18,38 @@ router.get("/", (req, res) => {
     });
 });
 
-// POST ROUTE for saving a task
-// router.post("/", (req, res) => {
-//   const dataFromDom = req.body;
-//   const queryText = `INSERT INTO "tasks" ("task_name")
-//   VALUES ($1);`;
+//PUT ROUTE FOR UPDATING
 
-//   pool
-//     .query(queryText, [dataFromDom.tasks]) //pull the new task from the DOM
-//     .then((responseDb) => {
-//       console.log(responseDb);
-//       res.sendStatus(201);
-//     })
-//     .catch((err) => {
-//       console.log("error:", err);
-//       res.sendStatus(500);
-//     });
-// });
+router.put("/:id", (req, res) => {
+  const taskID = req.params.id;
+  //this creates id as a new param, so when we test this PUT we need to add the id number to the URL
 
-router.post("/", (req, res) => {
-  const queryString = `INSERT INTO "tasks" ("task_name") VALUES ($1);`;
-
+  const queryText = `UPDATE "tasks" SET "completed"= 'true' WHERE "id" = '${taskID}';
+  `;
   pool
-    .query(queryString, [req.body.task])
+    .query(queryText, [req.body.task, req.body.completed, taskID])
     .then((response) => {
       res.sendStatus(201);
     })
     .catch((err) => {
       console.warn(err);
+      t;
+      res.sendStatus(500);
+    });
+});
+
+//POST ROUTE
+router.post("/", (req, res) => {
+  const queryText = `INSERT INTO "tasks" ("task_name") VALUES ($1);`;
+
+  pool
+    .query(queryText, [req.body.task])
+    .then((response) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.warn(err);
+      t;
       res.sendStatus(500);
     });
 });
