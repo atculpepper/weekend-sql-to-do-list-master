@@ -19,9 +19,10 @@ function init() {
 //below function captures DOM input on click and logs it to the console, then calls to function that clears the input field
 function submitTask(event) {
   event.preventDefault();
-  console.log("You clicked to add a task");
   const taskInput = $(".js-TODO-input").val();
   postTask(taskInput); //passes the DOM input to postTask function
+  console.log("You clicked to add " + taskInput);
+
   clearInput();
 }
 
@@ -52,31 +53,12 @@ function getTasks() {
     });
 }
 
-// function postTask(task) {
-//   //postTask function takes a task as its argument, which will generally be the taskInput generated on the DOM
-//   const dataForServer = {
-//     //creating an object to pass to the server in ajax call through POST route
-//     task_name: task,
-//   };
-//   $.ajax({
-//     type: "POST",
-//     url: "/todo",
-//     data: dataForServer,
-//   })
-//     .then((response) => {
-//       getTasks();
-//       console.log(response);
-//     })
-//     .catch((err) => {
-//       console.log("error:", err);
-//     });
-// }
-
 function postTask(task) {
+  //postTask function takes a task as its argument, which will generally be the taskInput generated on the DOM
   const dataForServer = {
+    //creating an object to pass to the server in ajax call through POST route
     task: task,
   };
-
   $.ajax({
     type: "POST",
     url: "/todo",
@@ -84,9 +66,10 @@ function postTask(task) {
   })
     .then((response) => {
       getTasks();
+      console.log(response);
     })
     .catch((err) => {
-      console.warn(err);
+      console.log("error:", err);
     });
 }
 
