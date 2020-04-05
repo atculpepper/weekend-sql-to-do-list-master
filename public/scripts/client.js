@@ -8,13 +8,20 @@ function init() {
   //connecting event listeners to the DOM
   $(".js-TODO-input-form").on("submit", submitTask); //connecting to the input form class
   // $("#complete_task").on("click", clickCompleteTask);
-  // $("#delete_task").on("click", clickDeleteTask);
+  $(".appendedTasks").on("click", ".js-deleteTask-btn", deleteTask);
 
   //load tasks to DOM
   getTasks();
 }
 
 //EVENT HANDLERS
+
+function deleteTask() {
+  console.log("You clicked to delete this task.");
+  //define a constant for the task ID
+  const taskID = $(this).parent().data("id"); //"this" is the button on the parent div that is on the DOM from page load
+  console.log(taskID); //should log out the ID on "this" parent element of the button child you click
+}
 
 //below function captures DOM input on click and logs it to the console, then calls to function that clears the input field
 function submitTask(event) {
