@@ -52,7 +52,7 @@ function getTasks() {
       console.log("error:", err);
     });
 }
-
+//sending captured value from client side to the server
 function postTask(task) {
   //postTask function takes a task as its argument, which will generally be the taskInput generated on the DOM
   const dataForServer = {
@@ -81,7 +81,7 @@ function render(taskList) {
   for (let taskItem of taskList) {
     $(".appendedTasks").append(`
 
-    <li class="task_item">
+    <li data-id = ${taskItem.id} class="task_item">
     ${taskItem.task_name}
     <button class="js-completeTask-btn btn btn_fullWidth" id="complete_task">Complete Task</button>
 <button class="js-deleteTask-btn btn btn_fullWidth" id="delete_task">Delete Task</button>
