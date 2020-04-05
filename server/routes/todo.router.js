@@ -54,6 +54,8 @@ router.post("/", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const taskID = req.params.id;
+  //this will log to the terminal since we are server side
+  console.log("you are deleting: " + taskID);
   const queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
 
   pool

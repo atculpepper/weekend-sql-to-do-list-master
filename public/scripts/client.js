@@ -21,6 +21,21 @@ function deleteTask() {
   //define a constant for the task ID
   const taskID = $(this).parent().data("id"); //"this" is the button on the parent div that is on the DOM from page load
   console.log(taskID); //should log out the ID on "this" parent element of the button child you click
+
+  //need to transfer over to server
+  $.ajax({
+    method: "DELETE",
+    //updating this URL with the taskID using a template literal
+    url: `/todo/${taskID}`,
+  })
+    .then((response) => {
+      //reload the tasks now that one is deleted
+      getTasks();
+      render(response);
+    })
+    .catch((err) => {
+      console.log("error:", err);
+    });
 }
 
 //below function captures DOM input on click and logs it to the console, then calls to function that clears the input field
