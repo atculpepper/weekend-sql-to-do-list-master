@@ -120,8 +120,8 @@ function render(taskList) {
 
     <li data-id = ${taskItem.id} class="task_item">
     ${taskItem.task_name} 
-    <button class="js-completeTask-btn btn btn_fullWidth" id="complete_task">Complete Task</button>
-<button class="js-deleteTask-btn btn btn_fullWidth" id="delete_task">Delete Task</button>
+    <button class="js-completeTask-btn btn btn_fullWidth" data-id=${taskItem.id}>Complete Task</button>
+<button class="js-deleteTask-btn btn btn_fullWidth" data-id=${taskItem.id}">Delete Task</button>
     </li>
     
     
