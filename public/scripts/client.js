@@ -7,7 +7,7 @@ function init() {
 
   //connecting event listeners to the DOM
   $(".js-TODO-input-form").on("submit", submitTask); //connecting to the input form class
-  $(".appendedTasks").on("click", ".js-completeTask-btn", updateComplete);
+  $(".appendedTasks").on("click", ".js-completeTask-btn", clickUpdate);
   $(".appendedTasks").on("click", ".js-deleteTask-btn", deleteTask);
 
   //load tasks to DOM
@@ -26,23 +26,30 @@ function submitTask(event) {
   clearInput();
 }
 
+function clickUpdate(event) {
+  taskUpdateId = event.target.dataset.id;
+  console.log("taskUpdateId: ", taskUpdateId);
+  const taskIndex = $(this).data("index");
+  console.log(taskIndex);
+}
+
 //function to clear input field
 function clearInput() {
   $(".js-TODO-input").val("");
 }
 
 //SERVER API CALLS//
-function updateComplete() {
-  console.log("you clicked to update");
-  //define a constant for the task ID
+function updateComplete(id, taskData) {
   const taskID = $(this).parent().data("id"); //"this" is the button on the parent div that is on the DOM from page load
-  console.log(taskID + this); //should log out the ID on "this" parent element of the button child you click
+  console.log("you clicked to update id: " + taskID);
+  //define a constant for the task ID
 
   //need to transfer over to server
   $.ajax({
     method: "PUT",
     //updating this URL with the taskID using a template literal
     url: `/todo/${taskID}`,
+    data: taskData,
   })
     .then((response) => {
       //reload the tasks now that one is deleted
