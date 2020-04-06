@@ -33,7 +33,6 @@ router.put("/:id", (req, res) => {
     updateForComplete = true;
   }
 
-  //BELOW COMMENTED OUT QUERY IS NOT WORKING -- I GET AN UNHANDLED PROMISE REJECTION WARNING
   const queryText = `UPDATE "tasks" SET "completed" = $1 WHERE "id" = $2`;
 
   pool
