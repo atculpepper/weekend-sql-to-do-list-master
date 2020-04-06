@@ -15,7 +15,7 @@ pool.on("connect", () => {
 });
 
 pool.on("error", (error) => {
-  console.log("Error with Postgres pool: ", error);
+  console.log("Error with database: ", error);
 });
 
 module.exports = pool;

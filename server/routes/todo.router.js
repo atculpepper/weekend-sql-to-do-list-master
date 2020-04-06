@@ -44,16 +44,16 @@ router.put("/:id", (req, res) => {
 
 //POST ROUTE
 router.post("/", (req, res) => {
-  const queryText = `INSERT INTO "tasks" ("task_name") VALUES ($1);`;
+  console.log(req.body);
+  const queryText = `INSERT INTO "tasks" ("task_name", "completed") VALUES ($1, false);`;
 
   pool
-    .query(queryText, [req.body.task])
+    .query(queryText, [req.body.task_name])
     .then((response) => {
       res.sendStatus(201);
     })
     .catch((err) => {
       console.warn(err);
-      t;
       res.sendStatus(500);
     });
 });
