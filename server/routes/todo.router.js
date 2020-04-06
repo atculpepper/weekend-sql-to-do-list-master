@@ -4,7 +4,7 @@ const pool = require("../modules/pool");
 
 //get route for the tasks--don't need to say /todo because this file is required in and server.js identifies /todo as the route
 router.get("/", (req, res) => {
-  const queryText = `SELECT * FROM "tasks"`;
+  const queryText = `SELECT * FROM "tasks" ORDER BY "id"`;
   pool
     .query(queryText)
     .then((responseDB) => {
@@ -22,16 +22,22 @@ router.get("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const taskID = req.params.id;
-  //this creates id as a new param, so when we test this PUT we need to add the id number to the URL
 
-  const newItemData = req.body;
+  //req comes up with the boolean as string
+  //convert string to boolean
+  //swap boolean
+
+  let updateForComplete = false;
+
+  if (req.body.completed === "true") {
+    updateForComplete = true;
+  }
 
   //BELOW COMMENTED OUT QUERY IS NOT WORKING -- I GET AN UNHANDLED PROMISE REJECTION WARNING
-  const queryText = `UPDATE "tasks" SET "task_name" = $1, "completed"=$2 WHERE "id" = $3;
-  `;
+  const queryText = `UPDATE "tasks" SET "completed" = $1 WHERE "id" = $2`;
 
   pool
-    .query(queryText, [newItemData.task_name, newItemData.completed, taskID])
+    .query(queryText, [updateForComplete, taskID])
     .then((response) => {
       res.sendStatus(201);
     })
