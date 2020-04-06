@@ -142,9 +142,9 @@ function render(taskList) {
     
     
     `);
-    if (taskItem.completed === "true") {
-      const funVariable = $(".appendedTasks").children().last();
-      funVariable.addClass("completed");
+    const newLi = $(".appendedTasks").children().children().last();
+    if (newLi.data.completed === "true") {
+      newLi.addClass("completed");
     }
   }
 }
