@@ -1,3 +1,38 @@
+.appBar {
+  margin: 0 0 30px;
+  padding: 15px 20px;
+  background-color: #86e6aa;
+  color: #f5f5f5;
+  text-align: center;
+}
+
+body {
+  height: 100%;
+  background-color: lightpink;
+  font-family: "Arvo", serif;
+}
+
 .completed {
   background-color: aquamarine;
+}
+
+.js-TODO-input-form {
+  border: 1rem;
+  padding: 20px 30px;
+}
+
+.appendedTasks {
+  border: 1rem;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.task_item {
+  border: 2px;
+  padding: 5px;
+}
+
+.btn {
+  box-sizing: border-box;
+  font-family: "Arvo", serif;
 }

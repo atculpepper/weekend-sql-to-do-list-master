@@ -36,7 +36,7 @@ function updateComplete() {
   console.log("you clicked to update");
   //define a constant for the task ID
   const taskID = $(this).parent().data("id"); //"this" is the button on the parent div that is on the DOM from page load
-  console.log(taskID); //should log out the ID on "this" parent element of the button child you click
+  console.log(taskID + this); //should log out the ID on "this" parent element of the button child you click
 
   //need to transfer over to server
   $.ajax({
@@ -119,7 +119,7 @@ function render(taskList) {
     $(".appendedTasks").append(`
 
     <li data-id = ${taskItem.id} class="task_item">
-    ${taskItem.task_name} ${taskItem.completed}
+    ${taskItem.task_name} 
     <button class="js-completeTask-btn btn btn_fullWidth" id="complete_task">Complete Task</button>
 <button class="js-deleteTask-btn btn btn_fullWidth" id="delete_task">Delete Task</button>
     </li>

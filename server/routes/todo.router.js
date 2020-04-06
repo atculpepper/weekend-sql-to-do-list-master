@@ -24,10 +24,14 @@ router.put("/:id", (req, res) => {
   const taskID = req.params.id;
   //this creates id as a new param, so when we test this PUT we need to add the id number to the URL
 
-  const queryText = `UPDATE "tasks" SET "completed"= 'true' WHERE "id" = '${taskID}';
+  const newItemData = req.body;
+
+  //BELOW COMMENTED OUT QUERY IS NOT WORKING -- I GET AN UNHANDLED PROMISE REJECTION WARNING
+  const queryText = `UPDATE "tasks" SET "task_name" = $1, "completed"=$2 WHERE "id" = $3;
   `;
+
   pool
-    .query(queryText, [req.body.task, req.body.completed, taskID])
+    .query(queryText, [newItemData.task_name, newItemData.completed, taskID])
     .then((response) => {
       res.sendStatus(201);
     })
