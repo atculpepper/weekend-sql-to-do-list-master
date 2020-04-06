@@ -43,7 +43,7 @@ router.put("/:id", (req, res) => {
     })
     .catch((err) => {
       console.warn(err);
-      t;
+
       res.sendStatus(500);
     });
 });
