@@ -7,7 +7,7 @@ function init() {
 
   //connecting event listeners to the DOM
   $(".js-TODO-input-form").on("submit", submitTask); //connecting to the input form class
-  $(".appendedTasks").on("click", ".js-completeTask-btn", clickUpdate);
+  $(".appendedTasks").on("click", ".js-completeTask-btn", updateComplete);
   $(".appendedTasks").on("click", ".js-deleteTask-btn", deleteTask);
 
   //load tasks to DOM
@@ -26,12 +26,12 @@ function submitTask(event) {
   clearInput();
 }
 
-function clickUpdate(event) {
-  taskUpdateId = event.target.dataset.id;
-  console.log("taskUpdateId: ", taskUpdateId);
-  const taskIndex = $(this).data("index");
-  console.log(taskIndex);
-}
+// function clickUpdate(event) {
+//   taskUpdateId = event.target.dataset.id;
+//   console.log("taskUpdateId: ", taskUpdateId);
+//   const taskIndex = $(this).data("index");
+//   console.log(taskIndex);
+// }
 
 //function to clear input field
 function clearInput() {
@@ -39,10 +39,22 @@ function clearInput() {
 }
 
 //SERVER API CALLS//
-function updateComplete(id, taskData) {
-  const taskID = $(this).parent().data("id"); //"this" is the button on the parent div that is on the DOM from page load
-  console.log("you clicked to update id: " + taskID);
-  //define a constant for the task ID
+function updateComplete() {
+  let completeUpdate = "";
+
+  let parentElement = $(this).parent(); //the data off of the parent element
+
+  if (parentElement.data("completed") === "true") {
+    completeUpdate = "false";
+  } else {
+    completeUpdate = "true";
+  }
+
+  const taskData = {
+    completed: completeUpdate,
+  };
+
+  const taskID = parentElement.data("id");
 
   //need to transfer over to server
   $.ajax({
@@ -75,19 +87,16 @@ function getTasks() {
 }
 
 //sending captured value from client side to the server
-function postTask(task) {
+function postTask(taskInput) {
   //postTask function takes a task as its argument, which will generally be the taskInput generated on the DOM
-  const dataForServer = {
-    //creating an object to pass to the server in ajax call through POST route
-    task: task,
-  };
+
   $.ajax({
     type: "POST",
     url: "/todo",
-    data: dataForServer,
+    data: { task_name: taskInput }, //this needs to be set up as an object because that is what my POST route is designed to receive
   })
     .then((response) => {
-      getTasks();
+      getTasks(); //update the page with the new task
       console.log(response);
     })
     .catch((err) => {
@@ -125,9 +134,9 @@ function render(taskList) {
   for (let taskItem of taskList) {
     $(".appendedTasks").append(`
 
-    <li data-id = ${taskItem.id} class="task_item">
+    <li data-id = ${taskItem.id} data-completed = ${taskItem.completed} class="task_item">
     ${taskItem.task_name} 
-    <button class="js-completeTask-btn btn btn_fullWidth" data-id=${taskItem.id}>Complete Task</button>
+    <button class="js-completeTask-btn btn btn_fullWidth" data-completed = ${taskItem.completed}>Complete Task</button>
 <button class="js-deleteTask-btn btn btn_fullWidth" data-id=${taskItem.id}">Delete Task</button>
     </li>
     
